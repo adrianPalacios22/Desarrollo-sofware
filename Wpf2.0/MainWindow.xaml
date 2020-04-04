@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf2._0"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="OnBreakerAPP" Height="412.566" Width="969.974">
+    <Grid HorizontalAlignment="Left" Height="331" Margin="10,10,0,0" VerticalAlignment="Top" Width="950">
+        <Label x:Name="lblrut" Content="Rut" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106" FontSize="16"/>
+        <TextBox x:Name="txtrut_Copy" HorizontalAlignment="Left" Height="23" Margin="121,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" FontSize="18"/>
+        <TextBox x:Name="txtdvr" HorizontalAlignment="Left" Height="23" Margin="336,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" FontSize="18"/>
+        <Label x:Name="lblrazon_social" Content="Razon Social" HorizontalAlignment="Left" Margin="490,10,0,0" VerticalAlignment="Top" Width="106" FontSize="16"/>
+        <TextBox x:Name="txtrazon_social" HorizontalAlignment="Left" Height="23" Margin="601,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="294" FontSize="18"/>
+        <Label x:Name="lbldireccion" Content="Direccion" HorizontalAlignment="Left" Margin="490,58,0,0" VerticalAlignment="Top" Width="106" FontSize="16"/>
+        <TextBox x:Name="txtdireccion" HorizontalAlignment="Left" Height="22" Margin="601,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="294" FontSize="18"/>
+        <Label x:Name="lbltelefono" Content="Telefono" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="106" FontSize="16"/>
+        <TextBox x:Name="txttelefono" HorizontalAlignment="Left" Height="22" Margin="121,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="294" FontSize="18"/>
     </Grid>
 </Window>
