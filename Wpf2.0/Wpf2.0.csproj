@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\Onbreaker.Biblioteca.csproj">
+      <Project>{7B497F1C-7CBE-40F8-BE67-AC440CF0335D}</Project>
+      <Name>Onbreaker.Biblioteca</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
