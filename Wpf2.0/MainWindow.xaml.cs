@@ -107,46 +107,8 @@ namespace Wpf2._0
             LimpiarControles();
         }
 
-        private void TxtRut_LostFocus(object sender, RoutedEventArgs e)
-        {
-            string rut = txtrut_Copy.Text;
-            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
-            if (cliente != null)
-            {
-                txtrut_Copy.IsEnabled = false;
-                txtdvr.IsEnabled = false;
 
-                txtdvr.Text = cliente.Rut.Split('-')[1];
-                txtrazon_social.Text = cliente.RazonSocial;
-                txtdireccion.Text = cliente.Direccion;
-                txttelefono.Text = cliente.Telefono.ToString();
-                cmbtipo.SelectedItem = cliente.tipo;
-                cmbactividad.SelectedItem = cliente.actividad;
-            }
-        }
-
-        private void BtnActualizar_Click(object sender, RoutedEventArgs e)
-        {
-            string rut = txtrut_Copy.Text;
-            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
-            if (cliente != null)
-            {
-                cliente.RazonSocial = txtrazon_social.Text;
-                cliente.Direccion = txtdireccion.Text;
-                cliente.Telefono = int.Parse(txttelefono.Text);
-                cliente.tipo = (tipoEmpresa)cmbtipo.SelectedItem;
-                cliente.actividad = (actividadEmpresa)cmbactividad.SelectedItem;
-
-                CargarGrilla();
-                LimpiarControles();
-            }
-            else
-            {
-                MessageBox.Show("El cliente ingresado no existe.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-        }
-
-        private void BtnEliminar_Click(object sender, RoutedEventArgs e)
+        private void btneliminar_Click(object sender, RoutedEventArgs e)
         {
             string rut = txtrut_Copy.Text;
             Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
@@ -268,6 +230,45 @@ namespace Wpf2._0
             txtrazon_social.Text = string.Empty;
             cmbtipo.SelectedIndex = -1;
             cmbactividad.SelectedIndex = -1;
+        }
+
+        private void txtrut_Copy_LostFocus_1(object sender, RoutedEventArgs e)
+        {
+            string rut = txtrut_Copy.Text;
+            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
+            if (cliente != null)
+            {
+                txtrut_Copy.IsEnabled = false;
+                txtdvr.IsEnabled = false;
+
+                txtdvr.Text = cliente.Rut.Split('-')[1];
+                txtrazon_social.Text = cliente.RazonSocial;
+                txtdireccion.Text = cliente.Direccion;
+                txttelefono.Text = cliente.Telefono.ToString();
+                cmbtipo.SelectedItem = cliente.tipo;
+                cmbactividad.SelectedItem = cliente.actividad;
+            }
+        }
+
+        private void btnactualizar_Click_1(object sender, RoutedEventArgs e)
+        {
+            string rut = txtrut_Copy.Text;
+            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
+            if (cliente != null)
+            {
+                cliente.RazonSocial = txtrazon_social.Text;
+                cliente.Direccion = txtdireccion.Text;
+                cliente.Telefono = int.Parse(txttelefono.Text);
+                cliente.tipo = (tipoEmpresa)cmbtipo.SelectedItem;
+                cliente.actividad = (actividadEmpresa)cmbactividad.SelectedItem;
+
+                CargarGrilla();
+                LimpiarControles();
+            }
+            else
+            {
+                MessageBox.Show("El cliente ingresado no existe.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }

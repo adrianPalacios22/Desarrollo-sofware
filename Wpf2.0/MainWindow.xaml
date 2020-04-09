@@ -8,7 +8,7 @@
         Title="OnBreakerAPP" Height="559.566" Width="944.474" FontFamily="Verdana" FontSize="14">
     <Grid HorizontalAlignment="Left" Height="514" Margin="10,10,0,0" VerticalAlignment="Top" Width="911">
         <Label x:Name="lblrut" Content="Rut" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106" FontSize="16"/>
-        <TextBox x:Name="txtrut_Copy" HorizontalAlignment="Left" Height="23" Margin="121,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" FontSize="18">
+        <TextBox x:Name="txtrut_Copy" HorizontalAlignment="Left" Height="23" Margin="121,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" FontSize="18" LostFocus="txtrut_Copy_LostFocus_1">
             <TextBox.Resources>
                 <Color x:Key="ColorRojo">#FFF00A0A</Color>
             </TextBox.Resources>
@@ -29,7 +29,7 @@
         <Label x:Name="lblactividad" Content="Actividad" HorizontalAlignment="Left" Margin="490,104,0,0" VerticalAlignment="Top" Width="106" FontSize="16"/>
         <DataGrid x:Name="dgClientes" HorizontalAlignment="Left" Height="241" Margin="10,166,0,0" VerticalAlignment="Top" Width="891"/>
         <Button x:Name="btningresar" Content="Ingresar" HorizontalAlignment="Left" Height="76" Margin="10,428,0,0" VerticalAlignment="Top" Width="129" FontWeight="Bold" FontFamily="Verdana" Click="btningresar_Click"/>
-        <Button x:Name="btnactualizar" Content="Actualizar" HorizontalAlignment="Left" Height="76" Margin="144,428,0,0" VerticalAlignment="Top" Width="129" FontWeight="Bold"/>
+        <Button x:Name="btnactualizar" Content="Actualizar" HorizontalAlignment="Left" Height="76" Margin="144,428,0,0" VerticalAlignment="Top" Width="129" FontWeight="Bold" Click="btnactualizar_Click_1"/>
         <Button x:Name="btneliminar" Content="Eliminar" HorizontalAlignment="Left" Height="76" Margin="278,428,0,0" VerticalAlignment="Top" Width="129" FontWeight="Bold" Foreground="#FFFB0B0B"/>
         <Button x:Name="btnlimpiar" Content="Limpiar" HorizontalAlignment="Left" Height="76" Margin="412,428,0,0" VerticalAlignment="Top" Width="129" FontWeight="Bold" Click="btnlimpiar_Click"/>
         <Button x:Name="btncerrar" Content="Cerrar" HorizontalAlignment="Left" Height="76" Margin="772,428,0,0" VerticalAlignment="Top" Width="129" FontWeight="Bold" Click="btncerrar_Click"/>
