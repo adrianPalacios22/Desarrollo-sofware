@@ -45,29 +45,136 @@ namespace Wpf2._0
 
         private void btncerrar_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult resultado = MessageBox.Show("¿Desea Cerrar?","Cerrar",MessageBoxButton.YesNo,MessageBoxImage.Question);
+            MessageBoxResult resultado = MessageBox.Show("¿Desea Cerrar?", "Cerrar", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (resultado == MessageBoxResult.Yes) {
                 this.Close();
             }
-            
+
         }
 
         private void btningresar_Click(object sender, RoutedEventArgs e)
         {
-            Cliente cliente = new Cliente();
-            cliente.Rut = string.Format("{0}-{1}",txtrut_Copy.Text.Trim(),txtdvr.Text.Trim());
-            cliente.RazonSocial = txtrazon_social.Text.Trim();
-            cliente.Telefono = int.Parse(txttelefono.Text);
-            cliente.Direccion = txtdireccion.Text.Trim();
-            cliente.tipo = (tipoEmpresa)cmbtipo.SelectedItem;
-            cliente.actividad = (actividadEmpresa)cmbactividad.SelectedItem;
+            try
+            {
+                if (ValidarCampos() == true)
+                {
 
-            clientes.Add(cliente);
+                    Cliente cliente = new Cliente();
+                    cliente.Rut = string.Format("{0}-{1}", txtrut_Copy.Text.Trim(), txtdvr.Text.Trim());
+                    cliente.RazonSocial = txtrazon_social.Text.Trim();
+                    cliente.Telefono = int.Parse(txttelefono.Text);
+                    cliente.Direccion = txtdireccion.Text.Trim();
+                    cliente.tipo = (tipoEmpresa)cmbtipo.SelectedItem;
+                    cliente.actividad = (actividadEmpresa)cmbactividad.SelectedItem;
 
-            CargarGrilla();
+                    clientes.Add(cliente);
+                    CargarGrilla();
+                    LimpiarControles();
 
+                }
+                else {
+                    MessageBox.Show("Debe Ingresar los datos Solicitados", "Validacion", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error..\n" + ex.Message, "Excepcion", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            }
+        }
+
+        
+
+        private void btnlimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            LimpiarControles();
+        }
+
+        private bool ValidarCampos()
+        {
+            bool validar = true;
+
+            if (txtrut_Copy.Text.Trim().Length == 0 && txtdvr.Text.Trim().Length == 0)
+            {
+                validar = false;
+                txtrut_Copy.BorderBrush = Brushes.Red;
+                txtdvr.BorderBrush = Brushes.Red;
+            }
+            else {
+                txtrut_Copy.BorderBrush = Brushes.Gray;
+                txtdvr.BorderBrush = Brushes.Gray;
+
+            }
+
+            if (txtdireccion.Text.Trim().Length == 0)
+            {
+                validar = false;
+                txtdireccion.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                txtdireccion.BorderBrush = Brushes.Gray;
+
+            }
+
+            if (txtrazon_social.Text.Trim().Length == 0)
+            {
+                validar = false; 
+                txtrazon_social.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                txtrazon_social.BorderBrush = Brushes.Gray;
+
+            }
+
+            if (txttelefono.Text.Trim().Length == 0)
+            {
+                validar = false;
+                txttelefono.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                txttelefono.BorderBrush = Brushes.Gray;
+
+            }
+
+            if (cmbtipo.SelectedIndex == -1)
+            {
+                validar = false;
+                cmbtipo.BorderBrush = Brushes.Red;
+
+            }
+            else
+            {
+                cmbtipo.BorderBrush = Brushes.Gray;
+
+            }
+
+            if (cmbactividad.SelectedIndex == -1)
+            {
+                validar = false;
+                cmbactividad.BorderBrush = Brushes.Red;
+
+            }
+            else
+            {
+                cmbactividad.BorderBrush = Brushes.Gray;
+
+            }
+            return validar;
+        }
+
+        private void LimpiarControles()
+        {
+            txtdireccion.Text = string.Empty;
+            txtrut_Copy.Text = string.Empty;
+            txtdvr.Text = string.Empty;
+            txttelefono.Text = string.Empty;
+            txtrazon_social.Text = string.Empty;
+            cmbtipo.SelectedIndex = -1;
+            cmbactividad.SelectedIndex = -1;
         }
     }
 }
