@@ -58,18 +58,34 @@ namespace Wpf2._0
             {
                 if (ValidarCampos() == true)
                 {
+                    string rut = string.Format("{0}-{1}", txtrut_Copy.Text.Trim(), txtdvr.Text.Trim());
+                    int telefono = 0;
+                    if (NoExisteCliente(rut))
+                    { 
 
-                    Cliente cliente = new Cliente();
-                    cliente.Rut = string.Format("{0}-{1}", txtrut_Copy.Text.Trim(), txtdvr.Text.Trim());
-                    cliente.RazonSocial = txtrazon_social.Text.Trim();
-                    cliente.Telefono = int.Parse(txttelefono.Text);
-                    cliente.Direccion = txtdireccion.Text.Trim();
-                    cliente.tipo = (tipoEmpresa)cmbtipo.SelectedItem;
-                    cliente.actividad = (actividadEmpresa)cmbactividad.SelectedItem;
+                        Cliente cliente = new Cliente();
+                        cliente.Rut = rut;
+                        cliente.RazonSocial = txtrazon_social.Text.Trim();
 
-                    clientes.Add(cliente);
-                    CargarGrilla();
-                    LimpiarControles();
+                        bool esUnNumero = int.TryParse(txttelefono.Text, out telefono);
+                        if (esUnNumero)
+                        {
+                            cliente.Telefono = telefono;
+                        }
+                        else
+                        {
+                            MessageBox.Show("El telefono debe ser de tipo numerico.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            return;
+                        }
+
+                        cliente.Direccion = txtdireccion.Text.Trim();
+                        cliente.tipo = (tipoEmpresa)cmbtipo.SelectedItem;
+                        cliente.actividad = (actividadEmpresa)cmbactividad.SelectedItem;
+
+                        clientes.Add(cliente);
+                        CargarGrilla();
+                        LimpiarControles();
+                    }
 
                 }
                 else {
@@ -89,6 +105,83 @@ namespace Wpf2._0
         private void btnlimpiar_Click(object sender, RoutedEventArgs e)
         {
             LimpiarControles();
+        }
+
+        private void TxtRut_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string rut = txtrut_Copy.Text;
+            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
+            if (cliente != null)
+            {
+                txtrut_Copy.IsEnabled = false;
+                txtdvr.IsEnabled = false;
+
+                txtdvr.Text = cliente.Rut.Split('-')[1];
+                txtrazon_social.Text = cliente.RazonSocial;
+                txtdireccion.Text = cliente.Direccion;
+                txttelefono.Text = cliente.Telefono.ToString();
+                cmbtipo.SelectedItem = cliente.tipo;
+                cmbactividad.SelectedItem = cliente.actividad;
+            }
+        }
+
+        private void BtnActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            string rut = txtrut_Copy.Text;
+            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
+            if (cliente != null)
+            {
+                cliente.RazonSocial = txtrazon_social.Text;
+                cliente.Direccion = txtdireccion.Text;
+                cliente.Telefono = int.Parse(txttelefono.Text);
+                cliente.tipo = (tipoEmpresa)cmbtipo.SelectedItem;
+                cliente.actividad = (actividadEmpresa)cmbactividad.SelectedItem;
+
+                CargarGrilla();
+                LimpiarControles();
+            }
+            else
+            {
+                MessageBox.Show("El cliente ingresado no existe.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void BtnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            string rut = txtrut_Copy.Text;
+            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
+            if (cliente != null)
+            {
+                MessageBoxResult resultado = MessageBox.Show("¿Estas seguro que deseas eliminar?", "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (resultado == MessageBoxResult.Yes)
+                {
+                    clientes.Remove(cliente);
+                    CargarGrilla();
+                }
+
+                LimpiarControles();
+            }
+            else
+            {
+                MessageBox.Show("El cliente ingresado no existe.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private bool NoExisteCliente(string rut)
+        {
+            //return clientes.FirstOrDefault(c => c.Rut == rut.Trim()) == null;
+            bool noExiste = true;
+
+            foreach (var cliente in clientes)
+            {
+                if (cliente.Rut == rut)
+                {
+                    noExiste = false;
+                    break;
+                }
+            }
+
+            return noExiste;
         }
 
         private bool ValidarCampos()
