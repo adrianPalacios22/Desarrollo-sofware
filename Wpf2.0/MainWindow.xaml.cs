@@ -13,13 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OnBreaker.Biblioteca;
+using MahApps.Metro.Controls;
 
 namespace Wpf2._0
 {
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private List<Cliente> clientes;
         public MainWindow()
@@ -106,29 +107,6 @@ namespace Wpf2._0
         {
             LimpiarControles();
         }
-
-
-        private void btneliminar_Click(object sender, RoutedEventArgs e)
-        {
-            string rut = txtrut_Copy.Text;
-            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
-            if (cliente != null)
-            {
-                MessageBoxResult resultado = MessageBox.Show("¿Estas seguro que deseas eliminar?", "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (resultado == MessageBoxResult.Yes)
-                {
-                    clientes.Remove(cliente);
-                    CargarGrilla();
-                }
-
-                LimpiarControles();
-            }
-            else
-            {
-                MessageBox.Show("El cliente ingresado no existe.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-        }
-
         private bool NoExisteCliente(string rut)
         {
             //return clientes.FirstOrDefault(c => c.Rut == rut.Trim()) == null;
@@ -230,25 +208,10 @@ namespace Wpf2._0
             txtrazon_social.Text = string.Empty;
             cmbtipo.SelectedIndex = -1;
             cmbactividad.SelectedIndex = -1;
+            txtrut_Copy.IsEnabled = true;
+            txtdvr.IsEnabled = true;
         }
 
-        private void txtrut_Copy_LostFocus_1(object sender, RoutedEventArgs e)
-        {
-            string rut = txtrut_Copy.Text;
-            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
-            if (cliente != null)
-            {
-                txtrut_Copy.IsEnabled = false;
-                txtdvr.IsEnabled = false;
-
-                txtdvr.Text = cliente.Rut.Split('-')[1];
-                txtrazon_social.Text = cliente.RazonSocial;
-                txtdireccion.Text = cliente.Direccion;
-                txttelefono.Text = cliente.Telefono.ToString();
-                cmbtipo.SelectedItem = cliente.tipo;
-                cmbactividad.SelectedItem = cliente.actividad;
-            }
-        }
 
         private void btnactualizar_Click_1(object sender, RoutedEventArgs e)
         {
@@ -269,6 +232,47 @@ namespace Wpf2._0
             {
                 MessageBox.Show("El cliente ingresado no existe.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+        }
+
+        private void btneliminar_Click_1(object sender, RoutedEventArgs e)
+        {
+            string rut = txtrut_Copy.Text;
+            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
+            if (cliente != null)
+            {
+                MessageBoxResult resultado = MessageBox.Show("¿Estas seguro que deseas eliminar?", "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (resultado == MessageBoxResult.Yes)
+                {
+                    clientes.Remove(cliente);
+                    CargarGrilla();
+                }
+
+                LimpiarControles();
+            }
+            else
+            {
+                MessageBox.Show("El cliente ingresado no existe.", "Validación", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+        }
+
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            string rut = txtrut_Copy.Text;
+            Cliente cliente = clientes.FirstOrDefault(c => c.Rut.Split('-')[0] == rut);
+            if (cliente != null)
+            {
+                txtrut_Copy.IsEnabled = false;
+                txtdvr.IsEnabled = false;
+
+                txtdvr.Text = cliente.Rut.Split('-')[1];
+                txtrazon_social.Text = cliente.RazonSocial;
+                txtdireccion.Text = cliente.Direccion;
+                txttelefono.Text = cliente.Telefono.ToString();
+                cmbtipo.SelectedItem = cliente.tipo;
+                cmbactividad.SelectedItem = cliente.actividad;
+            }
+
         }
     }
 }
