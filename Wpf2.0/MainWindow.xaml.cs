@@ -272,6 +272,9 @@ namespace Wpf2._0
                 cmbtipo.SelectedItem = cliente.tipo;
                 cmbactividad.SelectedItem = cliente.actividad;
             }
+            else {
+                MessageBox.Show("No existen datos de busqueda", "Validacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
 
         }
     }

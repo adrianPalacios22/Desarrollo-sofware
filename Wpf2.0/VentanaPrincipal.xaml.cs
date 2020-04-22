@@ -26,14 +26,17 @@ namespace Wpf2._0
 
         private void btnAdministracion_Click(object sender, RoutedEventArgs e)
         {
-            
+            MainWindow Administracion = new MainWindow();
+            Administracion.Owner = this;
+            Administracion.ShowDialog();
         }
 
         private void btnListadoClientes_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow ListadoClientes = new MainWindow();
-            ListadoClientes.Owner = this;
-            ListadoClientes.ShowDialog();
+            ListadoCliente Listado = new ListadoCliente();
+            Listado.Owner = this;
+            Listado.ShowDialog();
+
         }
     }
 }
